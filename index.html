@@ -206,9 +206,15 @@
             filter: brightness(1.3);
         }
 
-        .hero-video-window {
+        .hero-video-wrapper {
             position: relative;
             width: 90vw;
+            max-width: 920px;
+        }
+
+        .hero-video-window {
+            position: relative;
+            width: 100%;
             max-width: 920px;
             aspect-ratio: 16 / 9;
             background-color: #000000;
@@ -219,6 +225,30 @@
             justify-content: center;
             align-items: center;
         }
+
+        .demons-side-text {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: calc(100% + 18px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            color: #8b0000;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 1;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .demons-side-text .side-text-space {
+            height: 1em;
+        }
+
         .hero-video-window video {
             width: 100%;
             height: 100%;
@@ -878,8 +908,16 @@
             .heart-btn { top: 30px; right: 70px; }
             .menu-toggle { top: 30px; right: 30px; }
 
+            .demons-side-text {
+                display: none;
+            }
+
+            .hero-video-wrapper {
+                width: 95vw;
+            }
+
             .hero-video-window { 
-                width: 95vw; 
+                width: 100%; 
                 -webkit-transform: translateZ(0);
                 transform: translateZ(0);
                 -webkit-backface-visibility: hidden;
@@ -1017,7 +1055,7 @@
         </a>
     </header>
 
-    <a href="https://x.com/search?q=%23hamachithepsychotickiller&src=hashtag_click" target="_blank" rel="noopener noreferrer" class="heart-btn" aria-label="Hamachi Hashtag on X">view #hamachithepsychotickiller on 𝕏</a>
+    <a href="https://x.com/search?q=%23hamachithepsychotickiller&src=hashtag_click" target="_blank" rel="noopener noreferrer" class="heart-btn" aria-label="Hamachi Hashtag on X">view #hamachithepsychotickiller on X</a>
 
     <button class="menu-toggle" aria-label="Toggle Navigation">
         <span></span>
@@ -1109,11 +1147,32 @@
             <div class="hero-viewport-wrapper" id="heroViewport">
                 <main class="gta-landing-hero">
                     <p id="badGuyTagline" class="bad-guy-tagline" style="color: #8b0000; text-align: center; margin-bottom: 18px; font-weight: bold; font-size: 22px; text-shadow: 0 2px 6px rgba(0,0,0,0.8);">the platformer game where you can play as the bad guy</p>
-                    <div class="hero-video-window" id="heroVideoWindow">
-                        <video autoplay muted loop playsinline disablePictureInPicture preload="auto">
-                            <source src="https://gavinoriley.github.io/assets/HamachiCommercialCut.mp4" type="video/mp4">
-                        </video>
-                        <img src="https://gavinoriley.github.io/assets/Z4ow1Dt.png" alt="Hamachi Logo" class="hero-center-logo" id="mainGameLogo">
+                    <div class="hero-video-wrapper">
+                        <div class="hero-video-window" id="heroVideoWindow">
+                            <video autoplay muted loop playsinline disablePictureInPicture preload="auto">
+                                <source src="https://gavinoriley.github.io/assets/HamachiCommercialCut.mp4" type="video/mp4">
+                            </video>
+                            <img src="https://gavinoriley.github.io/assets/Z4ow1Dt.png" alt="Hamachi Logo" class="hero-center-logo" id="mainGameLogo">
+                        </div>
+                        <div id="demonsSideText" class="demons-side-text bad-guy-tagline">
+                            <span>d</span>
+                            <span>e</span>
+                            <span>m</span>
+                            <span>o</span>
+                            <span>n</span>
+                            <span>s</span>
+                            <span class="side-text-space"></span>
+                            <span>d</span>
+                            <span>e</span>
+                            <span>m</span>
+                            <span>o</span>
+                            <span>n</span>
+                            <span>s</span>
+                            <span>.</span>
+                            <span>.</span>
+                            <span>.</span>
+                            <span>!</span>
+                        </div>
                     </div>
 
                     <div class="gta-action-row">
@@ -1314,6 +1373,7 @@
         const actionButtons = document.querySelectorAll('.gta-pill-btn');
         const heroVideoWindow = document.getElementById('heroVideoWindow');
         const badGuyTagline = document.getElementById('badGuyTagline');
+        const demonsSideText = document.getElementById('demonsSideText');
         const illuminateTargetBtns = [
             document.getElementById('scrollExploreBtn'),
             document.getElementById('heroPitchBtn'),
@@ -1329,9 +1389,11 @@
             if (button) {
                 button.addEventListener('mouseenter', () => {
                     if (badGuyTagline) badGuyTagline.classList.add('illuminated');
+                    if (demonsSideText) demonsSideText.classList.add('illuminated');
                 });
                 button.addEventListener('mouseleave', () => {
                     if (badGuyTagline) badGuyTagline.classList.remove('illuminated');
+                    if (demonsSideText) demonsSideText.classList.remove('illuminated');
                 });
             }
         });
