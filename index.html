@@ -804,13 +804,81 @@
             opacity: 0.55;
         }
 
+        /* ===== MOBILE RESPONSIVE MEDIA QUERIES ===== */
+        @media (max-width: 1100px) {
+            .demons-side-text {
+                display: none;
+            }
+        }
+
         @media (max-width: 700px) {
             .top-nav-bar { padding: 0 16px; }
-            .gta-action-row { gap: 12px; }
-            .gta-pill-btn { padding: 12px 22px; font-size: 13px; }
-            .publishing-opportunity-section { padding: 50px 22px; }
-            .pub-section-title { font-size: 26px; }
-            .nav-overlay { padding: 60px 24px; }
+            .gta-landing-hero { padding: 70px 16px 16px 16px; }
+            .bad-guy-tagline { font-size: 14px; text-align: center; margin-bottom: 14px; }
+            
+            .gta-action-row { 
+                gap: 12px; 
+                flex-direction: column;
+                width: 100%;
+                max-width: 340px;
+            }
+            .pitch-btn-wrapper {
+                width: 100%;
+            }
+            .gta-pill-btn { 
+                width: 100%;
+                padding: 12px 20px; 
+                font-size: 13px; 
+            }
+            .pitch-preview-window {
+                display: none;
+            }
+
+            .scroll-down-hint { bottom: 15px; }
+            .scroll-down-hint span { font-size: 11px; }
+
+            .reveal-hero-intro { padding: 15px; }
+            .reveal-hero-intro .logo-wrapper img { margin-bottom: 16px; }
+            .reveal-hero-intro .intro-preview-frame { margin-bottom: 16px; }
+            .reveal-hero-intro p { font-size: 16px; line-height: 1.4; }
+
+            .image-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .extended-content-section {
+                padding: 30px 16px 40px 16px;
+            }
+            .extended-content-section p {
+                font-size: 16px;
+                line-height: 1.5;
+                margin-bottom: 35px;
+            }
+
+            .publishing-opportunity-section { 
+                padding: 40px 18px; 
+                margin: 40px 12px 30px 12px;
+                border-radius: 14px;
+                width: auto;
+            }
+            .pub-section-header { margin-bottom: 32px; }
+            .pub-section-title { font-size: 24px; letter-spacing: 2px; }
+            .pub-section-intro { font-size: 15px; line-height: 1.55; }
+            .pub-grid { grid-template-columns: 1fr; gap: 16px; margin-bottom: 24px; }
+            .pub-card, .pub-flexibility-box { padding: 20px; }
+            .pub-card h3, .pub-flexibility-box h3 { font-size: 16px; }
+            .pub-card p, .pub-flexibility-box p { font-size: 14px; }
+
+            .ending-gif-container { margin-bottom: 60px; }
+
+            .nav-overlay { padding: 70px 20px 40px; }
+            .nav-overlay a { font-size: 18px; }
+            .panel { font-size: 15px; }
+            .panel h2 { font-size: 16px; margin-bottom: 14px; }
+
+            .trailer-video-container { width: 95vw; }
+            .trailer-close-btn { top: 12px; right: 12px; font-size: 28px; }
         }
     </style>
 </head>
