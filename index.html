@@ -51,8 +51,8 @@
             cursor: url('https://gavinoriley.github.io/assets/sprCursor_3.png'), auto;
         }
         body {
-            background: #0b0813;
-            color: #ffffff;
+            background: #0a0a0c;
+            color: #e8e8e8;
             position: relative;
             min-height: 100vh;
             overflow-x: hidden;
@@ -69,20 +69,23 @@
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-stopped { overflow: hidden; }
 
-        .header-bar {
+        /* ===== FROSTED TOP NAV BAR ===== */
+        .top-nav-bar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
+            height: 56px;
+            z-index: 200;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 35px 50px;
-            z-index: 100;
-            pointer-events: none;
-        }
-        .header-bar * {
-            pointer-events: auto;
+            justify-content: space-between;
+            padding: 0 22px;
+            background: rgba(12, 12, 14, 0.6);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
         }
 
         .brand-logo-left {
@@ -91,70 +94,146 @@
             text-decoration: none;
         }
         .brand-logo-left img {
-            height: 38px;
+            height: 28px;
             width: auto;
             display: block;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+            transition: filter 0.3s ease;
         }
         .brand-logo-left:hover img {
-            filter: brightness(1.2) drop-shadow(0 0 12px rgba(255, 42, 117, 0.8));
-        }
-
-        .heart-btn {
-            position: fixed;
-            top: 40px;
-            right: 105px;
-            background: none;
-            border: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: bold;
-            text-decoration: none;
-            white-space: nowrap;
-            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .heart-btn:hover {
-            color: #ff2a75;
-            transform: scale(1.05);
+            filter: brightness(1.15) drop-shadow(0 0 8px rgba(200, 200, 210, 0.4));
         }
 
         .menu-toggle {
-            position: fixed;
-            top: 40px; 
-            right: 60px;
-            width: 28px;
-            height: 18px;
+            position: relative;
+            width: 22px;
+            height: 16px;
             background: none;
             border: none;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            align-items: center;
-            z-index: 200;
-            transform: scale(0.9);
-            transform-origin: top right;
+            z-index: 210;
+            cursor: pointer;
+            flex-shrink: 0;
         }
         .menu-toggle span {
             display: block;
             width: 100%;
-            height: 3px;
-            background-color: #ffffff;
-            border-radius: 2px;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            height: 1.5px;
+            background: #999;
+            transition: all 0.3s ease;
         }
-        .menu-toggle span:nth-child(2) { width: 70%; }
-        .menu-toggle.open span { background-color: #ff2a75; }
-        .menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-toggle span:nth-child(2) { width: 60%; }
+        .menu-toggle.open span { background: #ddd; }
+        .menu-toggle.open span:nth-child(1) { transform: translateY(7.25px) rotate(45deg); }
         .menu-toggle.open span:nth-child(2) { opacity: 0; }
-        .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        .menu-toggle.open span:nth-child(3) { transform: translateY(-7.25px) rotate(-45deg); }
 
+        /* Nav overlay + panels */
+        .nav-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 8, 10, 0.72);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 40px 60px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            overflow-y: auto;
+        }
+        .nav-overlay.open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .nav-links-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-width: 420px;
+            opacity: 1;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+        .nav-links-wrapper.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            position: absolute;
+        }
+        .nav-overlay a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 20px;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        .nav-overlay a:hover { color: #f0f0f0; }
+
+        .panel {
+            max-width: 640px;
+            color: #bbb;
+            font-size: 16px;
+            line-height: 1.7;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            position: absolute;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .panel.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            position: relative;
+        }
+        .panel h2 {
+            font-size: 18px;
+            color: #999;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .panel p { margin-bottom: 16px; }
+        .panel ul { list-style: none; margin: 16px 0; }
+        .panel li {
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 8px;
+            color: #999;
+        }
+        .panel li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        .copy-email-btn {
+            background: none;
+            border: 1px solid #444;
+            color: #aaa;
+            padding: 10px 20px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .copy-email-btn:hover,
+        .copy-email-btn.copied {
+            border-color: #888;
+            color: #fff;
+        }
+
+        /* ===== SCROLL STAGE / HERO ===== */
         .gta-scroll-stage {
             position: relative;
             height: 300vh;
@@ -198,12 +277,13 @@
 
         .bad-guy-tagline {
             transition: color 0.4s ease, text-shadow 0.4s ease, filter 0.4s ease;
+            color: #c8c8d0;
         }
 
         .bad-guy-tagline.illuminated {
-            color: #ff2a75 !important;
-            text-shadow: 0 0 15px rgba(255, 42, 117, 0.9), 0 0 30px rgba(255, 42, 117, 0.7) !important;
-            filter: brightness(1.3);
+            color: #f0f0f5 !important;
+            text-shadow: 0 0 12px rgba(220, 220, 230, 0.5) !important;
+            filter: brightness(1.2);
         }
 
         .hero-video-wrapper {
@@ -220,7 +300,7 @@
             background-color: #000000;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 0 1.5px rgba(255, 42, 117, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(180, 180, 190, 0.18);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -236,7 +316,7 @@
             justify-content: space-between;
             align-items: center;
             height: 100%;
-            color: #8b0000;
+            color: #666;
             font-weight: bold;
             font-size: 16px;
             line-height: 1;
@@ -259,7 +339,7 @@
         }
 
         .hero-video-window.video-dimmed video {
-            filter: brightness(0.35) saturate(0.8);
+            filter: brightness(0.4) saturate(0.7);
         }
 
         .hero-center-logo {
@@ -299,10 +379,10 @@
             transform: translateX(-50%) translateY(12px) scale(0.95);
             width: 300px;
             max-width: 85vw;
-            background: #0b0813;
-            border: 1px solid rgba(255, 42, 117, 0.5);
+            background: #0c0c0e;
+            border: 1px solid rgba(180, 180, 190, 0.25);
             border-radius: 10px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85), 0 0 20px rgba(255, 42, 117, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
             overflow: hidden;
             opacity: 0;
             visibility: hidden;
@@ -330,58 +410,35 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 40px;
+            padding: 14px 32px;
             border-radius: 50px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            color: #ffffff;
-            font-size: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #ddd;
+            font-size: 15px;
             font-weight: 700;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             text-decoration: none;
             text-transform: uppercase;
-            border: 1.5px solid rgba(255, 42, 117, 0.35);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7), inset 0 0 12px rgba(255, 42, 117, 0.08);
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(180, 180, 190, 0.22);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform, background-color, box-shadow, border-color;
             overflow: hidden;
             text-align: center;
         }
 
-        .gta-pill-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 160%;
-            height: 160%;
-            background: radial-gradient(circle, rgba(255, 42, 117, 0.35) 0%, rgba(255, 42, 117, 0) 70%);
-            transform: translate(-50%, -50%) scale(0.5);
-            opacity: 0;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: none;
-        }
-
         .gta-pill-btn:hover {
-            color: #ffffff;
-            border-color: rgba(255, 105, 180, 0.85);
-            background: rgba(255, 42, 117, 0.22);
-            box-shadow: 
-                0 0 35px rgba(255, 42, 117, 0.45),
-                0 0 70px rgba(255, 42, 117, 0.2),
-                inset 0 0 20px rgba(255, 105, 180, 0.3);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            color: #fff;
+            border-color: rgba(220, 220, 230, 0.55);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 28px rgba(180, 180, 200, 0.18);
             transform: translateY(-2px);
-        }
-
-        .gta-pill-btn:hover::before {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
         }
 
         .scroll-down-hint {
@@ -391,21 +448,21 @@
             flex-direction: column;
             align-items: center;
             gap: 8px;
-            opacity: 0.85;
+            opacity: 0.7;
             transition: opacity 0.3s ease;
         }
         .scroll-down-hint span {
             font-size: 13px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #ffffff;
+            color: #bbb;
             font-weight: bold;
         }
         .scroll-arrow {
-            width: 16px;
-            height: 16px;
-            border-right: 3px solid #ffffff;
-            border-bottom: 3px solid #ffffff;
+            width: 14px;
+            height: 14px;
+            border-right: 2px solid #bbb;
+            border-bottom: 2px solid #bbb;
             transform: rotate(45deg);
             animation: bounceScroll 2s infinite;
         }
@@ -450,14 +507,15 @@
         }
 
         .reveal-hero-intro p {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
-            color: #ffffff;
+            color: #e0e0e5;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
             max-width: 1100px;
             width: 100%;
         }
 
+        /* ===== CONTENT SECTIONS ===== */
         .extended-content-section {
             position: relative;
             z-index: 30;
@@ -481,25 +539,25 @@
             max-width: 100%;
             height: auto;
             background: transparent !important;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55);
             cursor: pointer;
             border-radius: 6px;
-            transition: opacity 0.3s ease, box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.3s ease, box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .image-container img:hover {
-            box-shadow: 0 12px 35px rgba(255, 42, 117, 0.4);
+            box-shadow: 0 12px 30px rgba(160, 160, 180, 0.2);
             transform: scale(1.02);
         }
 
         .extended-content-section p {
-            font-size: 22px;
-            line-height: 1.5;
-            color: #ffffff;
+            font-size: 20px;
+            line-height: 1.55;
+            color: #d0d0d8;
             font-weight: bold;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
             max-width: 1150px;
             margin: 0 auto 50px auto;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
 
         .reveal-on-scroll {
@@ -520,18 +578,19 @@
             filter: blur(0);
         }
 
+        /* ===== PUBLISHING SECTION ===== */
         .publishing-opportunity-section {
             position: relative;
             z-index: 30;
             width: 100%;
             max-width: 1100px;
             margin: 60px auto 40px auto;
-            padding: 80px 40px;
+            padding: 70px 40px;
             text-align: center;
-            background: linear-gradient(180deg, rgba(255, 42, 117, 0.03) 0%, rgba(11, 8, 19, 0.85) 40%, rgba(255, 42, 117, 0.05) 100%);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 42, 117, 0.25);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(255, 42, 117, 0.05);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(12, 12, 14, 0.9) 40%, rgba(255, 255, 255, 0.025) 100%);
+            border-radius: 18px;
+            border: 1px solid rgba(180, 180, 190, 0.15);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), inset 0 0 30px rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -539,32 +598,32 @@
         .publishing-opportunity-section::before {
             content: '';
             position: absolute;
-            top: -120px;
+            top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80%;
-            height: 120px;
-            background: radial-gradient(ellipse at bottom, rgba(255, 42, 117, 0.25) 0%, rgba(11, 8, 19, 0) 75%);
+            width: 70%;
+            height: 100px;
+            background: radial-gradient(ellipse at bottom, rgba(180, 180, 200, 0.12) 0%, rgba(10, 10, 12, 0) 75%);
             pointer-events: none;
         }
 
         .pub-section-header {
-            margin-bottom: 50px;
+            margin-bottom: 48px;
         }
 
         .pub-section-title {
-            font-size: 38px;
-            color: #ff2a75;
+            font-size: 34px;
+            color: #e8e8f0;
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 18px;
-            text-shadow: 0 0 20px rgba(255, 42, 117, 0.5);
+            text-shadow: 0 0 18px rgba(200, 200, 220, 0.25);
         }
 
         .pub-section-intro {
-            font-size: 20px;
-            line-height: 1.6;
-            color: #e0e0e0;
+            font-size: 18px;
+            line-height: 1.65;
+            color: #c0c0c8;
             max-width: 850px;
             margin: 0 auto;
         }
@@ -572,59 +631,59 @@
         .pub-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
+            gap: 22px;
+            margin-bottom: 36px;
         }
 
         .pub-card {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 42, 117, 0.25);
+            border: 1px solid rgba(180, 180, 190, 0.18);
             border-radius: 12px;
-            padding: 28px;
+            padding: 26px;
             text-align: left;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s, box-shadow 0.5s;
         }
 
         .pub-card:hover {
-            transform: translateY(-6px);
-            border-color: #ff2a75;
-            box-shadow: 0 14px 35px rgba(255, 42, 117, 0.25);
+            transform: translateY(-5px);
+            border-color: rgba(210, 210, 220, 0.4);
+            box-shadow: 0 14px 32px rgba(160, 160, 180, 0.12);
         }
 
         .pub-card h3 {
-            font-size: 20px;
-            color: #00f0ff;
+            font-size: 18px;
+            color: #d0d0d8;
             margin-bottom: 12px;
             letter-spacing: 1px;
         }
 
         .pub-card p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #d0d0d0;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #a8a8b0;
         }
 
         .pub-flexibility-box {
-            background: rgba(255, 42, 117, 0.08);
-            border: 1px solid rgba(255, 42, 117, 0.35);
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(180, 180, 190, 0.22);
             border-radius: 12px;
-            padding: 28px;
+            padding: 26px;
             text-align: left;
-            margin-bottom: 45px;
+            margin-bottom: 40px;
         }
 
         .pub-flexibility-box h3 {
-            font-size: 20px;
-            color: #ff2a75;
+            font-size: 18px;
+            color: #d8d8e0;
             margin-bottom: 12px;
             letter-spacing: 1px;
         }
 
         .pub-flexibility-box p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #e0e0e0;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #b0b0b8;
         }
 
         .pub-cta-wrapper {
@@ -645,11 +704,12 @@
             width: 100%;
             height: auto;
             border-radius: 12px;
-            border: 1px solid rgba(255, 42, 117, 0.35);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 42, 117, 0.2);
+            border: 1px solid rgba(180, 180, 190, 0.2);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
             display: block;
         }
 
+        /* Modals */
         .image-modal {
             position: fixed;
             top: 0;
@@ -672,7 +732,7 @@
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: transform;
             cursor: zoom-out;
-            box-shadow: 0 0 35px rgba(255, 42, 117, 0.5);
+            box-shadow: 0 0 30px rgba(160, 160, 180, 0.25);
             max-width: none;
             max-height: none;
         }
@@ -683,9 +743,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(9, 7, 16, 0.65);
-            backdrop-filter: blur(20px) saturate(140%);
-            -webkit-backdrop-filter: blur(20px) saturate(140%);
+            background: rgba(8, 8, 10, 0.75);
+            backdrop-filter: blur(18px) saturate(130%);
+            -webkit-backdrop-filter: blur(18px) saturate(130%);
             z-index: 160;
             display: flex;
             justify-content: center;
@@ -706,7 +766,7 @@
             background: #000000;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 0 1.5px rgba(255, 42, 117, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(180, 180, 190, 0.2);
         }
         .trailer-video-container iframe {
             width: 100%;
@@ -715,463 +775,147 @@
         }
         .trailer-close-btn {
             position: absolute;
-            top: 35px;
-            right: 50px;
+            top: 28px;
+            right: 28px;
             background: none;
             border: none;
-            color: #ffffff;
-            font-size: 42px;
+            color: #aaa;
+            font-size: 32px;
             cursor: pointer;
             z-index: 170;
-            line-height: 1;
-            transition: color 0.3s ease;
+            transition: color 0.2s;
         }
-        .trailer-close-btn:hover {
-            color: #ff2a75;
-        }
-
-        .nav-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 8, 19, 0.55);
-            backdrop-filter: blur(20px) saturate(140%);
-            -webkit-backdrop-filter: blur(20px) saturate(140%);
-            z-index: 150;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-        }
-        .nav-overlay.open { opacity: 1; visibility: visible; }
-        
-        #menuBgCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .nav-links-wrapper {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-            transform: scale(1);
-        }
-        .nav-links-wrapper.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transform: scale(0.95);
-            position: absolute;
-        }
-
-        .nav-overlay a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 36px;
-            letter-spacing: 2px;
-            transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-        }
-
-        .nav-overlay a.hover-red:hover { color: #ff2a75; }
-        .nav-overlay a.hover-green:hover { color: #00ff66; }
-        .nav-overlay a.hover-blue:hover { color: #00f0ff; }
-        .nav-overlay a.hover-yellow:hover { color: #ffff00; }
-
-        .synopsis-container, .pub-op-container, .about-dev-container, .bad-guy-container, .contact-container {
-            z-index: 10;
-            display: flex;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transform: translateY(20px);
-            transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
-            position: absolute;
-        }
-        .synopsis-container.active, .pub-op-container.active, .about-dev-container.active, .bad-guy-container.active, .contact-container.active {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            position: relative;
-            transform: translateY(0);
-        }
-
-        .synopsis-container {
-            width: 90%;
-            max-width: 1100px;
-            gap: 60px;
-        }
-        .synopsis-left { flex: 1.4; text-align: left; }
-        .synopsis-desc { font-size: 21px; line-height: 1.6; color: #ffffff; margin-bottom: 28px; }
-        .synopsis-features-title { font-size: 18px; color: #ff2a75; letter-spacing: 2px; margin-bottom: 14px; text-transform: uppercase; }
-        .synopsis-features-list { list-style: none; }
-        .synopsis-features-list li { font-size: 17px; line-height: 1.5; color: #cccccc; margin-bottom: 12px; position: relative; padding-left: 20px; }
-        .synopsis-features-list li::before { content: "•"; color: #ff2a75; position: absolute; left: 0; font-size: 20px; }
-        .synopsis-right { flex: 0.8; border-left: 1px solid rgba(255, 255, 255, 0.2); padding-left: 45px; display: flex; flex-direction: column; justify-content: center; gap: 16px; text-align: left; }
-        .metadata-row { display: flex; font-size: 18px; color: #bbbbbb; letter-spacing: 1px; }
-        .metadata-row strong { color: #ff2a75; width: 140px; flex-shrink: 0; }
-
-        .pub-op-container {
-            flex-direction: column;
-            align-items: center;
-            width: 90%;
-            max-width: 900px;
-            max-height: 85vh;
-            overflow-y: auto;
-            gap: 24px;
-            padding: 20px 10px;
-        }
-        .pub-op-header { text-align: center; border-bottom: 1px solid rgba(255, 42, 117, 0.4); padding-bottom: 16px; width: 100%; }
-        .pub-op-title { font-size: 32px; color: #ff2a75; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
-        .pub-op-intro { font-size: 19px; line-height: 1.6; color: #e0e0e0; }
-
-        .about-dev-container, .bad-guy-container {
-            flex-direction: column;
-            align-items: center;
-            width: 90%;
-            max-width: 850px;
-            max-height: 85vh;
-            overflow-y: auto;
-            gap: 20px;
-            padding: 20px 10px;
-        }
-        .about-dev-header { text-align: center; border-bottom: 1px solid rgba(0, 240, 255, 0.4); padding-bottom: 16px; width: 100%; margin-bottom: 10px; }
-        .about-dev-title { font-size: 32px; color: #00f0ff; letter-spacing: 3px; text-transform: uppercase; }
-        .about-dev-text { font-size: 19px; line-height: 1.6; color: #e0e0e0; text-align: left; }
-
-        .contact-container {
-            flex-direction: column;
-            align-items: center;
-            width: 90%;
-            max-width: 850px;
-            max-height: 85vh;
-            overflow-y: auto;
-            gap: 25px;
-            padding: 20px 10px;
-            text-align: center;
-        }
-        .contact-btn-row {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-        .contact-btn-row .gta-pill-btn {
-            width: 230px;
-            padding: 16px 20px;
-        }
-        .copy-email-btn.copied {
-            background: rgba(0, 255, 102, 0.25) !important;
-            border-color: #00ff66 !important;
-            color: #00ff66 !important;
-            box-shadow: 0 0 25px rgba(0, 255, 102, 0.5) !important;
-        }
+        .trailer-close-btn:hover { color: #fff; }
 
         footer {
             text-align: center;
-            padding: 30px 0;
-            color: #aaaaaa;
-            font-weight: bold;
-            font-size: 14px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 50;
+            padding: 40px 20px 50px;
+            color: #555;
+            font-size: 13px;
+            letter-spacing: 0.5px;
         }
 
-        @media screen and (max-width: 768px) {
-            html, body {
-                overflow-x: clip !important;
-                width: 100%;
-            }
+        /* Always-on floating particles */
+        #menuBgCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.55;
+        }
 
-            .sticky-viewport {
-                height: 100vh;
-                height: 100dvh;
-            }
-
-            .header-bar { padding: 25px 30px; }
-            .heart-btn { top: 30px; right: 70px; }
-            .menu-toggle { top: 30px; right: 30px; }
-
-            .demons-side-text {
-                display: none;
-            }
-
-            .hero-video-wrapper {
-                width: 95vw;
-            }
-
-            .hero-video-window { 
-                width: 100%; 
-                -webkit-transform: translateZ(0);
-                transform: translateZ(0);
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
-            .hero-video-window video {
-                -webkit-transform: translateZ(0);
-                transform: translateZ(0);
-                will-change: auto;
-            }
-
-            .gta-action-row { flex-direction: column; width: 90%; gap: 14px; }
-            
-            .pitch-btn-wrapper {
-                width: 100%;
-            }
-
-            .pitch-preview-window {
-                display: none !important;
-            }
-
-            .gta-pill-btn { 
-                width: 100%; 
-                padding: 14px 20px; 
-                font-size: 14px; 
-                text-align: center;
-                justify-content: center;
-            }
-
-            .nav-overlay a {
-                font-size: 22px;
-                text-align: center;
-            }
-            .nav-links-wrapper {
-                gap: 18px;
-                padding: 0 20px;
-                width: 100%;
-            }
-
-            .synopsis-container {
-                width: 92%;
-                max-width: 100%;
-                max-height: 82vh;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-                padding: 15px 10px;
-                margin: 0 auto;
-            }
-            .synopsis-container.active { 
-                flex-direction: column; 
-                gap: 20px; 
-            }
-            .synopsis-desc {
-                font-size: 16px;
-                line-height: 1.5;
-                margin-bottom: 18px;
-            }
-            .synopsis-features-title {
-                font-size: 16px;
-                margin-bottom: 10px;
-            }
-            .synopsis-features-list li {
-                font-size: 14px;
-                line-height: 1.4;
-                margin-bottom: 8px;
-            }
-            .synopsis-right { 
-                border-left: none; 
-                padding-left: 0; 
-                border-top: 1px solid rgba(255, 255, 255, 0.2); 
-                padding-top: 18px; 
-                gap: 10px;
-            }
-            .metadata-row {
-                font-size: 14px;
-                flex-wrap: wrap;
-            }
-            .metadata-row strong {
-                width: 110px;
-            }
-
-            .extended-content-section {
-                width: 100%;
-                padding: 40px 15px 60px 15px;
-            }
-            .extended-content-section p { 
-                font-size: 18px; 
-                word-break: break-word;
-            }
-            .publishing-opportunity-section { 
-                padding: 35px 20px; 
-                margin: 40px auto; 
-                width: calc(100% - 30px);
-                box-sizing: border-box;
-            }
-            .ending-gif-container {
-                width: calc(100% - 30px);
-                margin: 0 auto 60px auto;
-            }
+        @media (max-width: 700px) {
+            .top-nav-bar { padding: 0 16px; }
+            .gta-action-row { gap: 12px; }
+            .gta-pill-btn { padding: 12px 22px; font-size: 13px; }
+            .publishing-opportunity-section { padding: 50px 22px; }
             .pub-section-title { font-size: 26px; }
-            .pub-section-intro { font-size: 16px; }
-            .image-container { flex-direction: column; align-items: center; gap: 10px; }
-            .trailer-close-btn { top: 20px; right: 25px; font-size: 32px; }
-            .reveal-hero-intro p {
-                font-size: 18px;
-                padding: 0 10px;
-            }
-
-            .about-dev-title { font-size: 26px; }
-            .about-dev-text { font-size: 16px; }
-            .contact-btn-row { flex-direction: column; width: 100%; gap: 12px; }
-            .contact-btn-row .gta-pill-btn { width: 100%; }
+            .nav-overlay { padding: 60px 24px; }
         }
     </style>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "VideoGame",
-      "name": "Hamachi the Psychotic Killer",
-      "description": "HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.",
-      "image": "https://gavinoriley.github.io/assets/ScreenshotHomePage.png",
-      "url": "https://hamachithepsychotickiller.com/publishingpartnerships/",
-      "genre": "Action, Platformer, Indie",
-      "gamePlatform": "PC",
-      "publisher": { "@type": "Person", "name": "Gavin ORiley" }
-    }
-    </script>
 </head>
 <body>
+    <!-- Always-on particle canvas -->
+    <canvas id="menuBgCanvas"></canvas>
 
-    <header class="header-bar">
-        <a href="https://hamachithepsychotickiller.com/" class="brand-logo-left" aria-label="Hamachi Icon Homepage">
-            <img src="https://gavinoriley.github.io/assets/whitehamaface.png" alt="Hamachi Icon">
+    <!-- FROSTED TOP NAV -->
+    <div class="top-nav-bar">
+        <a href="https://hamachithepsychotickiller.com/" class="brand-logo-left">
+            <img src="https://gavinoriley.github.io/assets/whitehamaface.png" alt="Hamachi">
         </a>
-    </header>
+        <button class="menu-toggle" id="menuToggleBtn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
 
-    <a href="https://x.com/search?q=%23hamachithepsychotickiller&src=hashtag_click" target="_blank" rel="noopener noreferrer" class="heart-btn" aria-label="Hamachi Hashtag on X">view #hamachithepsychotickiller on X</a>
-
-    <button class="menu-toggle" aria-label="Toggle Navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
+    <!-- NAV OVERLAY -->
     <nav class="nav-overlay" id="mainNavOverlay">
-        <canvas id="menuBgCanvas"></canvas>
-
         <div class="nav-links-wrapper" id="menuLinksWrapper">
-            <a href="https://hamachithepsychotickiller.com/" class="menu-link hover-red">MAIN WEBSITE</a>
-            <a href="https://hamachithepsychotickiller.com/about/" class="menu-link hover-green">GAME INFO</a>
-            <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="menu-link hover-blue">PLAY DEMO</a>
-            <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link hover-yellow">STEAM PAGE</a>
-            <a href="https://hamachithepsychotickiller.com/devroom/" class="menu-link hover-red">DEV ROOM</a>
-            <a href="#" class="menu-link hover-green" id="navSynopsisBtn">SYNOPSIS</a>
-            <a href="#" class="menu-link hover-blue" id="navAboutDevBtn">ABOUT THE DEV</a>
-            <a href="#" class="menu-link hover-yellow" id="navBadGuyBtn">WHO'S THE BAD GUY?</a>
+            <a href="https://hamachithepsychotickiller.com/" class="menu-link">main website</a>
+            <a href="https://hamachithepsychotickiller.com/about/" class="menu-link">game info</a>
+            <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="menu-link">play demo</a>
+            <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link">steam page</a>
+            <a href="https://hamachithepsychotickiller.com/devroom/" class="menu-link">dev room</a>
+            <a href="#" class="menu-link" id="navSynopsisBtn">synopsis</a>
+            <a href="#" class="menu-link" id="navAboutDevBtn">about the dev</a>
+            <a href="#" class="menu-link" id="navBadGuyBtn">who's the bad guy</a>
         </div>
 
-        <div class="synopsis-container" id="synopsisContentPanel">
-            <div class="synopsis-left">
-                <p class="synopsis-desc">In this platformer, you control a piece of tofu named Hamachi, who unexpectedly falls into the possession of Demon Queen Deity, an evil fiend who intends to use him as a vessel to conquer the world through mass murder.</p>
-                <h3 class="synopsis-features-title">FEATURES:</h3>
-                <ul class="synopsis-features-list">
-                    <li>Play as the villain: Choose to kill, spare, or ignore every civilian.</li>
-                    <li>Three distinct routes: Pacifist, Neutral, and Genocide, each with its own ending.</li>
-                    <li>Defeat or pacify demonic bosses, pacified bosses will join your side.</li>
-                    <li>Journey through 8 visually distinct worlds built with original pixel art.</li>
-                    <li>Chainsaw power-up, <em>The Psycho Saw</em>, grants temporary invincibility and destroys any being you touch.</li>
-                    <li>Collect souls from dead civilians or sushi dropped by Penelope Pom Pom Pink to restore health.</li>
-                    <li>Your crimes will not go unnoticed by the authorities.</li>
-                </ul>
-            </div>
-            <div class="synopsis-right">
-                <div class="metadata-row"><strong>TITLE:</strong> Hamachi the Psychotic Killer</div>
-                <div class="metadata-row"><strong>GENRE:</strong> Action, Indie</div>
-                <div class="metadata-row"><strong>DEVELOPER:</strong> gavinoriley</div>
-                <div class="metadata-row"><strong>PUBLISHER:</strong> Self-Published</div>
-                <div class="metadata-row"><strong>RELEASE DATE:</strong> Feb 27, 2026</div>
-                <div class="metadata-row"><strong>PLATFORM:</strong> Windows/Mac</div>
-            </div>
-        </div>
-
-        <div class="about-dev-container" id="aboutDevContentPanel">
-            <div class="about-dev-header">
-                <h2 class="about-dev-title">ABOUT THE DEV</h2>
-            </div>
-            <p class="about-dev-text">Based in California, my name is gavinoriley. I'm a solo self-taught developer, or, more specifically, I barf up code into GameMaker and then strategically piece it together with glue and tape.</p>
-            <p class="about-dev-text">I began by pulling apart prebuilt projects in GameMaker to understand how code and design fit together, while also modding existing 2D and 3D games. That eventually led me to a specialized game development program in high school, where I continued honing my skills.</p>
-            <p class="about-dev-text">Today, I'm the independent dev behind <em>Hamachi the Psychotic Killer</em>, which I produced from concept through release, collaborating with an artist on the game's tilesets and a composer on its music.</p>
-        </div>
-
-        <div class="bad-guy-container" id="badGuyContentPanel">
-            <div class="about-dev-header" style="border-bottom-color: rgba(255, 255, 0, 0.4);">
-                <h2 class="about-dev-title" style="color: #ffff00;">DEMON QUEEN DEITY</h2>
-            </div>
-            <p class="about-dev-text" style="text-align: center;">Defiance is the first step to a forgotten fate.</p>
-        </div>
-
-        <div class="pub-op-container" id="pubOpContentPanel">
-            <div class="pub-op-header">
-                <h2 class="pub-op-title">PUBLISHING PARTNERSHIPS</h2>
-                <p class="pub-op-intro"><em>Hamachi the Psychotic Killer</em> is a completed game released in 2026. We are exploring publishing partnerships to expand global reach, support console ports, and elevate marketing.</p>
+        <div class="panel" id="synopsisContentPanel">
+            <h2>synopsis</h2>
+            <p>In this platformer, you control a piece of tofu named Hamachi, who unexpectedly falls into the possession of Demon Queen Deity, an evil fiend who intends to use him as a vessel to conquer the world through mass murder.</p>
+            <p style="color:#777;font-size:14px;margin-top:20px;">features</p>
+            <ul>
+                <li>Play as the villain: Choose to kill, spare, or ignore every civilian.</li>
+                <li>Three distinct routes: Pacifist, Neutral, and Genocide, each with its own ending.</li>
+                <li>Defeat or pacify demonic bosses, pacified bosses will join your side.</li>
+                <li>Journey through 8 visually distinct worlds built with original pixel art.</li>
+                <li>Chainsaw power-up, The Psycho Saw, grants temporary invincibility and destroys any being you touch.</li>
+                <li>Collect souls from dead civilians or sushi dropped by Penelope Pom Pom Pink to restore health.</li>
+                <li>Your crimes will not go unnoticed by the authorities.</li>
+            </ul>
+             <div style="margin-top:28px;">
+                <div class="meta-line"><strong>title:</strong> Hamachi the Psychotic Killer</div>
+                <div class="meta-line"><strong>genre:</strong> Action, Indie</div>
+                <div class="meta-line"><strong>developer:</strong> gavinoriley</div>
+                <div class="meta-line"><strong>publisher:</strong> Self-Published</div>
+                <div class="meta-line"><strong>release:</strong> Feb 27, 2026</div>
+                <div class="meta-line"><strong>platform:</strong> Windows/Mac</div>
             </div>
         </div>
+        
 
-        <div class="contact-container" id="contactContentPanel">
-            <div class="pub-op-header">
-                <h2 class="pub-op-title">GET IN TOUCH / REQUEST PITCH DECK</h2>
-            </div>
-            <div class="contact-btn-row">
-                <button class="gta-pill-btn copy-email-btn" id="copyEmailBtn">Copy Email</button>
-            </div>
+        <div class="panel" id="aboutDevContentPanel">
+            <h2>about the developer</h2>
+            <p>Based in California, my name is gavinoriley. I'm a solo self-taught developer, or, more specifically, I barf up code into GameMaker and then strategically piece it together with glue and tape.<br>
+            <br>
+
+I began by pulling apart prebuilt GameMaker projects to
+understand how code and game design fit together, eventually
+progressing to a specialized game development program in high
+school.<br>
+<br>
+
+Today, I'm the independent dev behind Hamachi the Psychotic Killer, which I produced from concept through release, collaborating with an artist on the game's tilesets and a composer on its music.</p>
+        </div>
+
+        <div class="panel" id="badGuyContentPanel">
+            <h2>who's the bad guy</h2>
+            <p>someone bad :(</p>
+        </div>
+
+        <div class="panel" id="contactContentPanel">
+            <h2>contact</h2>
+            <p>publishing inquiries / pitch deck requests</p>
+            <button class="copy-email-btn" id="copyEmailBtn">copy email</button>
         </div>
     </nav>
 
-    <div class="trailer-modal" id="trailerModal">
-        <button class="trailer-close-btn" id="closeTrailerBtn" aria-label="Close Trailer">&times;</button>
-        <div class="trailer-video-container">
-            <iframe id="trailerIframe" src="" title="Hamachi the Psychotic Killer Trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-    </div>
-
+    <!-- SCROLL STAGE -->
     <div class="gta-scroll-stage" id="scrollStage">
         <div class="sticky-viewport">
-            
+            <!-- Hero content (fades out) -->
             <div class="hero-viewport-wrapper" id="heroViewport">
                 <main class="gta-landing-hero">
-                    <p id="badGuyTagline" class="bad-guy-tagline" style="color: #8b0000; text-align: center; margin-bottom: 18px; font-weight: bold; font-size: 22px; text-shadow: 0 2px 6px rgba(0,0,0,0.8);">the platformer game where you can play as the bad guy</p>
+                    <p class="bad-guy-tagline" id="badGuyTagline" style="margin-bottom: 18px; font-size: 16px; letter-spacing: 1px;">
+                        the platformer game where you can play as the bad guy
+                    </p>
+
                     <div class="hero-video-wrapper">
                         <div class="hero-video-window" id="heroVideoWindow">
-                            <video autoplay muted loop playsinline disablePictureInPicture preload="auto">
+                            <video autoplay muted loop playsinline>
                                 <source src="https://gavinoriley.github.io/assets/HamachiCommercialCut.mp4" type="video/mp4">
                             </video>
-                            <img src="https://gavinoriley.github.io/assets/Z4ow1Dt.png" alt="Hamachi Logo" class="hero-center-logo" id="mainGameLogo">
+                            <img src="https://gavinoriley.github.io/assets/Z4ow1Dt.png" alt="Hamachi Logo" class="hero-center-logo">
                         </div>
-                        <div id="demonsSideText" class="demons-side-text bad-guy-tagline">
-                            <span>d</span>
-                            <span>e</span>
-                            <span>m</span>
-                            <span>o</span>
-                            <span>n</span>
-                            <span>s</span>
-                            <span class="side-text-space"></span>
-                            <span>d</span>
-                            <span>e</span>
-                            <span>m</span>
-                            <span>o</span>
-                            <span>n</span>
-                            <span>s</span>
-                            <span>.</span>
-                            <span>.</span>
-                            <span>.</span>
-                            <span>!</span>
+                        <div class="demons-side-text" id="demonsSideText">
+                            <span>d</span><span>e</span><span>m</span><span>o</span><span>n</span><span>s</span>
+                            <div class="side-text-space"></div>
+                            <span>d</span><span>e</span><span>m</span><span>o</span><span>n</span><span>s</span>
+                            <div class="side-text-space"></div>
+                            <span>.</span><span>.</span><span>.</span><span>!</span>
                         </div>
                     </div>
 
@@ -1193,6 +937,7 @@
                 </div>
             </div>
 
+            <!-- Reveal content (fades in independently) -->
             <div class="reveal-hero-intro" id="revealHeroIntro">
                 <div class="logo-wrapper">
                     <a href="https://hamachithepsychotickiller.com/">
@@ -1200,9 +945,8 @@
                     </a>
                 </div>
                 <img src="https://gavinoriley.github.io/assets/titleprev.png" alt="Controls" class="intro-preview-frame">
-                <p>The platformer game where you can play as the BAD GUY. (or the good guy)</p>
+                <p>the platformer game where you can play as the bad guy. (or the good guy)</p>
             </div>
-
         </div>
     </div>
 
@@ -1212,8 +956,8 @@
             <img src="https://gavinoriley.github.io/assets/endscreendemogame.png" alt="End Screen Game">
         </div>
         <p class="reveal-on-scroll">
-            Venture through a world where your actions have consequences.<br>
-            In this platformer, you control a piece of tofu named Hamachi, who unexpectedly falls into the possession of Demon Queen Deity,<br>
+            venture through a world where your actions have consequences.<br>
+            in this platformer, you control a piece of tofu named hamachi, who unexpectedly falls into the possession of demon queen deity,<br>
             an evil fiend who intends to use him as a vessel to conquer the world through mass murder.
         </p>
 
@@ -1221,47 +965,47 @@
             <img src="https://gavinoriley.github.io/assets/new1normal.png" alt="1 Normal Scene">
             <img src="https://gavinoriley.github.io/assets/newchainsaw.png" alt="Chainsaw Scene">
         </div>
-        <p class="reveal-on-scroll">Spare or kill innocent civilians with your axe, or with a chainsaw that grants invincibility!</p>
+        <p class="reveal-on-scroll">spare or kill innocent civilians with your axe, or with a chainsaw that grants invincibility.</p>
         
         <div class="image-container reveal-on-scroll">
             <img src="https://gavinoriley.github.io/assets/newdemonboss1.png" alt="Demon Boss 1">
             <img src="https://gavinoriley.github.io/assets/demonboss2.png" alt="Demon Boss 2">
         </div>
-        <p class="reveal-on-scroll">Fight against powerful demons, or show them you mean no harm and pacify them!</p>
+        <p class="reveal-on-scroll">fight against powerful demons, or show them you mean no harm and pacify them.</p>
         
         <div class="image-container reveal-on-scroll">
             <img src="https://gavinoriley.github.io/assets/policechase1.png" alt="Police Chase 1">
             <img src="https://gavinoriley.github.io/assets/policechase2.png" alt="Police Chase 2">
         </div>
-        <p class="reveal-on-scroll">Your crimes will not go unnoticed by the authorities.</p>
+        <p class="reveal-on-scroll">your crimes will not go unnoticed by the authorities.</p>
     </section>
 
     <section class="publishing-opportunity-section reveal-on-scroll" id="publishingSection">
         <div class="pub-section-header">
             <h2 class="pub-section-title">PUBLISHING PARTNERSHIPS</h2>
             <p class="pub-section-intro">
-                <em>Hamachi the Psychotic Killer</em> is a completed game, released in February 2026 and available today. I'm open to exploring publishing partnerships that could expand Hamachi's reach and further develop the game beyond its current release.
+                <em>Hamachi the Psychotic Killer</em> is a completed game, released in february 2026 and available today. im open to exploring publishing partnerships that could expand hamachi's reach and further develop the game beyond its current release.
             </p>
         </div>
 
         <div class="pub-grid">
             <div class="pub-card reveal-on-scroll">
-                <h3>Original Soundtrack</h3>
-                <p>An expanded original soundtrack could further strengthen Hamachi's musical identity, atmosphere, and world.</p>
+                <h3>original soundtrack</h3>
+                <p>hamachi features original music, with an opportunity to expand and complete the OST.</p>
             </div>
             <div class="pub-card reveal-on-scroll">
-                <h3>Visual Polish</h3>
-                <p>Additional sprite work, animation, and visual polish could further enhance the game's presentation.</p>
+                <h3>visual polish</h3>
+                <p>additional sprite work, animation, and refinements could further develop hamachi's visual style.</p>
             </div>
             <div class="pub-card reveal-on-scroll">
-                <h3>Expansion</h3>
-                <p>There are opportunities to take Hamachi further through additional content, a definitive edition, console and mobile releases, localization, and other avenues for growth.</p>
+                <h3>expansion</h3>
+                <p>there are opportunities to take hamachi further through a definitive edition, console and mobile ports, localization, and other avenues for growth.</p>
             </div>
         </div>
 
         <div class="pub-flexibility-box reveal-on-scroll">
-            <h3>Flexibility</h3>
-            <p>The opportunities above represent potential directions for Hamachi rather than fixed requirements. I'm open to discussing what makes sense for the game and the right publishing partner. I would continue leading development, with a publishing partner providing funding to support that work.</p>
+            <h3>overall</h3>
+            <p>the opportunities outlined above are ideas for potential growth, not requirements. im open to discussing what makes the most sense for hamachi and its future.</p>
         </div>
 
         <div class="pub-cta-wrapper reveal-on-scroll">
@@ -1284,8 +1028,16 @@
         <img src="" alt="">
     </div>
 
+    <!-- Trailer Modal -->
+    <div class="trailer-modal" id="trailerModal">
+        <button class="trailer-close-btn" id="closeTrailerBtn">×</button>
+        <div class="trailer-video-container">
+            <iframe id="trailerIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <footer>
-        <p>© 2026 Hamachi the Psychotic Killer. All rights reserved.</p>
+        <p>© 2026 hamachi the psychotic killer. all rights reserved.</p>
     </footer>
 
     <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
@@ -1308,7 +1060,7 @@
         requestAnimationFrame(raf);
 
         const scrollStage = document.getElementById('scrollStage');
-        const heroViewport = document.getElementById('heroViewport');
+        const heroViewport = document.getElementById('heroViewport'); // now the wrapper
         const revealHeroIntro = document.getElementById('revealHeroIntro');
 
         function handleScrollTransition() {
@@ -1317,6 +1069,7 @@
             const scrolled = -stageRect.top;
             const p = Math.max(0, Math.min(1, scrolled / Math.max(1, stageHeight)));
 
+            // Phase 1: fade out the hero content
             if (p <= 0.42) {
                 const phase1Progress = p / 0.42;
                 const opacity = (1 - phase1Progress).toFixed(3);
@@ -1330,6 +1083,7 @@
                 heroViewport.style.pointerEvents = 'none';
             }
 
+            // Phase 2: independently fade in the reveal content
             if (p >= 0.42) {
                 const phase2Progress = Math.min(1, (p - 0.42) / 0.43);
                 const opacity = phase2Progress.toFixed(3);
@@ -1398,6 +1152,7 @@
             }
         });
 
+        // Trailer modal
         const watchTrailerBtn = document.getElementById('watchTrailerBtn');
         const trailerModal = document.getElementById('trailerModal');
         const trailerIframe = document.getElementById('trailerIframe');
@@ -1430,7 +1185,9 @@
                 if (e.target === trailerModal) closeTrailerModal();
             });
         }
+        if (watchTrailerBtn) watchTrailerBtn.addEventListener('click', openTrailerModal);
 
+        // Image modal
         const clickableImages = document.querySelectorAll('.image-container img, .intro-preview-frame, .ending-gif-container img');
         const modal = document.querySelector('.image-modal');
         const modalImg = modal.querySelector('img');
@@ -1522,6 +1279,7 @@
             }
         });
 
+        // Always-on floating particles
         const canvas = document.getElementById('menuBgCanvas');
         const ctx = canvas.getContext('2d');
         let animFrameId = null;
@@ -1555,34 +1313,30 @@
             animFrameId = requestAnimationFrame(renderMenuBackground);
         }
 
-        function startMenuBgAnimation() {
+        function startParticles() {
             resizeCanvas();
             shapesArr = [];
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 18; i++) {
                 shapesArr.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.6,
-                    vy: (Math.random() - 0.5) * 0.6,
-                    size: 4 + Math.random() * 6,
-                    color: 'rgba(255, 42, 117, 0.35)'
+                    vx: (Math.random() - 0.5) * 0.35,
+                    vy: (Math.random() - 0.5) * 0.35,
+                    size: 2.5 + Math.random() * 4.5,
+                    color: 'rgba(220, 220, 230, 0.22)'
                 });
             }
             if (!animFrameId) renderMenuBackground();
         }
 
-        function stopMenuBgAnimation() {
-            if (animFrameId) {
-                cancelAnimationFrame(animFrameId);
-                animFrameId = null;
-            }
-        }
+        // Start particles immediately on load
+        startParticles();
 
-        const menuToggle = document.querySelector('.menu-toggle');
+        // Menu controls
+        const menuToggle = document.getElementById('menuToggleBtn');
         const navOverlay = document.getElementById('mainNavOverlay');
         const menuLinksWrapper = document.getElementById('menuLinksWrapper');
         const synopsisContentPanel = document.getElementById('synopsisContentPanel');
-        const pubOpContentPanel = document.getElementById('pubOpContentPanel');
         const aboutDevContentPanel = document.getElementById('aboutDevContentPanel');
         const badGuyContentPanel = document.getElementById('badGuyContentPanel');
         const contactContentPanel = document.getElementById('contactContentPanel');
@@ -1601,18 +1355,15 @@
 
             if (isClosing) {
                 document.body.style.overflow = '';
-                stopMenuBgAnimation();
                 setTimeout(() => {
                     menuLinksWrapper.classList.remove('hidden');
                     synopsisContentPanel.classList.remove('active');
-                    pubOpContentPanel.classList.remove('active');
                     aboutDevContentPanel.classList.remove('active');
                     badGuyContentPanel.classList.remove('active');
                     contactContentPanel.classList.remove('active');
                 }, 400);
             } else {
                 document.body.style.overflow = 'hidden';
-                startMenuBgAnimation();
             }
         }
 
@@ -1625,7 +1376,6 @@
                 navOverlay.classList.add('open');
             }
             menuLinksWrapper.classList.add('hidden');
-            pubOpContentPanel.classList.remove('active');
             aboutDevContentPanel.classList.remove('active');
             badGuyContentPanel.classList.remove('active');
             contactContentPanel.classList.remove('active');
@@ -1639,7 +1389,6 @@
                 navOverlay.classList.add('open');
             }
             menuLinksWrapper.classList.add('hidden');
-            pubOpContentPanel.classList.remove('active');
             synopsisContentPanel.classList.remove('active');
             badGuyContentPanel.classList.remove('active');
             contactContentPanel.classList.remove('active');
@@ -1653,7 +1402,6 @@
                 navOverlay.classList.add('open');
             }
             menuLinksWrapper.classList.add('hidden');
-            pubOpContentPanel.classList.remove('active');
             synopsisContentPanel.classList.remove('active');
             aboutDevContentPanel.classList.remove('active');
             contactContentPanel.classList.remove('active');
@@ -1667,13 +1415,11 @@
                 navOverlay.classList.add('open');
             }
             menuLinksWrapper.classList.add('hidden');
-            pubOpContentPanel.classList.remove('active');
             synopsisContentPanel.classList.remove('active');
             aboutDevContentPanel.classList.remove('active');
             badGuyContentPanel.classList.remove('active');
             contactContentPanel.classList.add('active');
             document.body.style.overflow = 'hidden';
-            startMenuBgAnimation();
         }
 
         navSynopsisBtn.addEventListener('click', openSynopsisPanel);
