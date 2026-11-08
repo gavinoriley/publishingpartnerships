@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Publishing | HAMACHI THE PSYCHOTIC KILLER</title>
-<meta name="description" content="HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.">
+<meta name="description" content="HAMACHI THE PSYCHOTIC KILLER is a 2D horror platformer game where you play as the bad guy. Kill or spare civilians while under the possession of Demon Queen Deity. Available on PC and Mac.">
 <meta name="keywords" content="Hamachi the Psychotic Killer, video game, indie game, action game, 2d game, platformer">
 <meta property="og:title" content="Publishing | HAMACHI THE PSYCHOTIC KILLER">
-<meta property="og:description" content="HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.">
+<meta property="og:description" content="HAMACHI THE PSYCHOTIC KILLER is a 2D horror platformer game where you play as the bad guy. Kill or spare civilians while under the possession of Demon Queen Deity. Available on PC and Mac.">
 <meta property="og:image" content="https://gavinoriley.github.io/assets/ScreenshotHomePage.png">
 <meta property="og:url" content="https://hamachithepsychotickiller.com/publishingpartnerships/">
 <meta property="og:type" content="website">
@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Publishing | HAMACHI THE PSYCHOTIC KILLER">
-<meta name="twitter:description" content="HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.">
+<meta name="twitter:description" content="HAMACHI THE PSYCHOTIC KILLER is a 2D horror platformer game where you play as the bad guy. Kill or spare civilians while under the possession of Demon Queen Deity. Available on PC and Mac.">
 <meta name="twitter:image" content="https://gavinoriley.github.io/assets/ScreenshotHomePage.png">
 <meta name="twitter:site" content="@imgavinoriley">
 <meta name="robots" content="index, follow">
@@ -975,7 +975,7 @@ pointer-events: none;
 opacity: 0.55;
 }
 
-
+/* ===== MOBILE RESPONSIVE MEDIA QUERIES ===== */
 @media (max-width: 1100px) {
 .demons-side-text {
 display: none;
@@ -1072,10 +1072,10 @@ padding: max(60px, calc(56px + env(safe-area-inset-top))) max(20px, env(safe-are
 </style>
 </head>
 <body>
-
+<!-- Always-on particle canvas -->
 <canvas id="menuBgCanvas"></canvas>
 
-
+<!-- FROSTED TOP NAV -->
 <div class="top-nav-bar">
 <button class="menu-toggle" aria-label="Toggle Navigation" id="menuToggleBtn">
 <span></span>
@@ -1798,7 +1798,7 @@ openContactPanel(e);
 }
 </script>
 <script>
-
+// NAV BAR STATE SYNC (matches homepage): fades the frosted bar out while the menu overlay is open
 (function () {
 var btn = document.getElementById('menuToggleBtn');
 var overlay = document.getElementById('mainNavOverlay');
