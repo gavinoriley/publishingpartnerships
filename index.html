@@ -1131,7 +1131,7 @@ share on x
 <a href="https://hamachithepsychotickiller.com/" class="menu-link">home</a>
 <a href="#" class="menu-link" id="navSynopsisBtn">synopsis</a>
 <a href="https://hamachithepsychotickiller.com/about/" class="menu-link">game info</a>
-<a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="menu-link">play demo</a>
+<a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="menu-link" id="menuPlayDemoLink">play demo</a>
 <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link">buy game</a>
 <a href="#" class="menu-link" id="navContactBtn">contact</a>
 <a href="https://gavinoriley.github.io/assets/Hama_WallPaper.zip" download class="menu-link">wallpaper</a>
@@ -1816,6 +1816,22 @@ new MutationObserver(sync).observe(overlay, { attributes: true, attributeFilter:
 sync();
 document.addEventListener('keydown', function (e) {
 if (e.key === 'Escape' && overlay.classList.contains('open')) btn.click();
+});
+})();
+</script>
+<script>
+(function () {
+var MOBILE_DEMO_URL = 'https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/';
+var link = document.getElementById('menuPlayDemoLink');
+if (!link) return;
+function isMobileDevice() {
+return window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.matchMedia('(max-width: 768px)').matches;
+}
+link.addEventListener('click', function (e) {
+if (isMobileDevice()) {
+e.preventDefault();
+window.open(MOBILE_DEMO_URL, '_blank', 'noopener,noreferrer');
+}
 });
 })();
 </script>
