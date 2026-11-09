@@ -1128,14 +1128,14 @@ share on x
 <!-- NAV OVERLAY -->
 <nav class="nav-overlay" id="mainNavOverlay">
 <div class="nav-links-wrapper" id="menuLinksWrapper">
-<a href="https://hamachithepsychotickiller.com/" class="menu-link">main website</a>
+<a href="https://hamachithepsychotickiller.com/" class="menu-link">home</a>
+<a href="#" class="menu-link" id="navSynopsisBtn">synopsis</a>
 <a href="https://hamachithepsychotickiller.com/about/" class="menu-link">game info</a>
 <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="menu-link">play demo</a>
-<a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link">steam page</a>
-<a href="https://hamachithepsychotickiller.com/devroom/" class="menu-link">dev room</a>
-<a href="#" class="menu-link" id="navSynopsisBtn">synopsis</a>
-<a href="#" class="menu-link" id="navAboutDevBtn">about the dev</a>
-<a href="#" class="menu-link" id="navBadGuyBtn">who's the bad guy</a>
+<a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link">buy game</a>
+<a href="#" class="menu-link" id="navContactBtn">contact</a>
+<a href="https://gavinoriley.github.io/assets/Hama_WallPaper.zip" download class="menu-link">wallpaper</a>
+<a href="#" class="menu-link" id="navAboutDevBtn">about dev</a>
 </div>
 
 <div class="panel" id="synopsisContentPanel">
@@ -1720,6 +1720,8 @@ document.body.style.overflow = 'hidden';
 navSynopsisBtn.addEventListener('click', openSynopsisPanel);
 if (navAboutDevBtn) navAboutDevBtn.addEventListener('click', openAboutDevPanel);
 if (navBadGuyBtn) navBadGuyBtn.addEventListener('click', openBadGuyPanel);
+const navContactBtn = document.getElementById('navContactBtn');
+if (navContactBtn) navContactBtn.addEventListener('click', openContactPanel);
 scrollExploreBtn.addEventListener('click', openSynopsisPanel);
 
 pitchTriggers.forEach(btn => {
