@@ -471,15 +471,23 @@ width: 100%;
 padding: 80px 20px 20px 20px;
 }
 
+/* tagline glow: timing matched to the HOME page (slow fade in on button hover, slower fade out) */
 .bad-guy-tagline {
-transition: color 0.4s ease, text-shadow 0.4s ease, filter 0.4s ease;
+transition: color 1s cubic-bezier(0.4, 0, 0.2, 1),
+text-shadow 1s cubic-bezier(0.4, 0, 0.2, 1),
+filter 1s cubic-bezier(0.4, 0, 0.2, 1);
 color: #c8c8d0;
+text-shadow: 0 0 12px rgba(220, 220, 230, 0);
+filter: brightness(1);
 }
 
 .bad-guy-tagline.illuminated {
 color: #f0f0f5 !important;
 text-shadow: 0 0 12px rgba(220, 220, 230, 0.5) !important;
 filter: brightness(1.2);
+transition: color 1.5s cubic-bezier(0.5, 0, 0.2, 1),
+text-shadow 1.5s cubic-bezier(0.5, 0, 0.2, 1),
+filter 1.5s cubic-bezier(0.5, 0, 0.2, 1);
 }
 
 .hero-video-wrapper {
@@ -530,12 +538,13 @@ width: 100%;
 height: 100%;
 object-fit: cover;
 display: block;
-transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+transition: filter 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
 will-change: filter;
 }
 
 .hero-video-window.video-dimmed video {
 filter: brightness(0.4) saturate(0.7);
+transition: filter 1.5s cubic-bezier(0.5, 0, 0.2, 1), opacity 1.5s cubic-bezier(0.5, 0, 0.2, 1);
 }
 
 .hero-center-logo {
@@ -601,6 +610,9 @@ visibility: visible;
 transform: translateX(-50%) translateY(0) scale(1);
 }
 
+/* ===== PILL BUTTONS — same aesthetic as the HOME page buttons =====
+   lowercase labels, slow 1.35s fade-in on hover (text, border, background),
+   plus a soft diffuse glow (::after) that blooms around the pill. */
 .gta-pill-btn {
 position: relative;
 display: inline-flex;
@@ -609,32 +621,49 @@ justify-content: center;
 padding: 14px 32px;
 border-radius: 50px;
 background: rgba(255, 255, 255, 0.04);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
 color: #ddd;
 font-size: 15px;
 font-weight: 700;
 letter-spacing: 1.2px;
 text-decoration: none;
-text-transform: uppercase;
 border: 1px solid rgba(180, 180, 190, 0.22);
 box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
-transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-will-change: transform, background-color, box-shadow, border-color;
-overflow: hidden;
+transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1),
+border-color 1s cubic-bezier(0.4, 0, 0.2, 1),
+color 1s cubic-bezier(0.4, 0, 0.2, 1),
+box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1);
+isolation: isolate;
 text-align: center;
+-webkit-appearance: none;
+appearance: none;
 }
 
 .gta-pill-btn:hover {
 color: #fff;
 border-color: rgba(220, 220, 230, 0.55);
 background: rgba(255, 255, 255, 0.1);
-box-shadow: 0 0 28px rgba(180, 180, 200, 0.18);
-transform: translateY(-2px);
+transition: background-color 1.35s cubic-bezier(0.5, 0, 0.2, 1),
+border-color 1.35s cubic-bezier(0.5, 0, 0.2, 1),
+color 1.35s cubic-bezier(0.5, 0, 0.2, 1);
+}
+
+/* soft glow halo that fades in behind the pill on hover */
+.gta-pill-btn::after {
+content: '';
+position: absolute;
+inset: 0;
+border-radius: inherit;
+pointer-events: none;
+z-index: -1;
+opacity: 0;
+box-shadow: 0 0 22px 3px rgba(215, 215, 235, 0.30),
+0 6px 46px 8px rgba(190, 190, 225, 0.20);
+transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gta-pill-btn:hover::after {
+opacity: 1;
+transition: opacity 1.35s cubic-bezier(0.5, 0, 0.2, 1);
 }
 
 .scroll-down-hint {
@@ -702,12 +731,15 @@ box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
 margin-bottom: 25px;
 }
 
+/* text format matched to the ABOUT page paragraph style
+   (About uses 22px inside a 0.9 zoom wrapper = 19.8px on screen) */
 .reveal-hero-intro p {
-font-size: 22px;
-font-weight: bold;
-color: #e0e0e5;
-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-max-width: 1100px;
+font-size: 19.8px;
+font-weight: normal;
+line-height: 1.5;
+color: white;
+text-shadow: 1px 1px 2px black;
+max-width: 2000px;
 width: 100%;
 }
 
@@ -716,7 +748,7 @@ width: 100%;
 position: relative;
 z-index: 30;
 width: 100%;
-max-width: 800px;
+max-width: none; /* was 800px, which forced the paragraphs to wrap; About page has no width cap */
 margin: 0 auto;
 padding: 40px 20px 60px 20px;
 text-align: center;
@@ -745,15 +777,33 @@ box-shadow: 0 12px 30px rgba(160, 160, 180, 0.2);
 transform: scale(1.02);
 }
 
+/* photo size matched to the ABOUT page:
+   About shows each photo at most 800px wide inside a 0.9 zoom wrapper (= 720px on screen).
+   Here the same 0.9 zoom is applied to just the photo rows (the text sizes above already
+   account for it), each photo is capped at 800px, and the photos may shrink on narrower
+   windows so a pair never runs off the sides of the screen. */
+.extended-content-section .image-container {
+zoom: 0.9;
+max-width: 1620px; /* two 800px photos + the 20px gap */
+}
+.extended-content-section .image-container img {
+max-width: 800px;
+min-width: 0;
+}
+
+/* text format matched to the ABOUT page paragraph style:
+   regular weight, white, 1px black shadow, no letter-spacing, 1.5 line-height,
+   2000px max-width so each line breaks only where the <br> tags say.
+   (About uses 22px inside a 0.9 zoom wrapper = 19.8px on screen) */
 .extended-content-section p {
-font-size: 20px;
-line-height: 1.55;
-color: #d0d0d8;
-font-weight: bold;
-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-max-width: 1150px;
+font-size: 19.8px;
+line-height: 1.5;
+color: white;
+font-weight: normal;
+text-shadow: 1px 1px 2px black;
+max-width: 2000px;
 margin: 0 auto 50px auto;
-letter-spacing: 0.4px;
+letter-spacing: normal;
 }
 
 .reveal-on-scroll {
@@ -1007,6 +1057,14 @@ display: none;
 }
 }
 
+/* About page drops paragraphs to 18px (x0.9 zoom = 16.2px) at 768px and below */
+@media (max-width: 768px) {
+.extended-content-section p,
+.reveal-hero-intro p {
+font-size: 16.2px;
+}
+}
+
 @media (max-width: 700px) {
 .top-nav-bar {
 padding-left: max(12px, env(safe-area-inset-left));
@@ -1051,7 +1109,7 @@ display: none;
 .reveal-hero-intro { padding: 15px; }
 .reveal-hero-intro .logo-wrapper img { margin-bottom: 16px; }
 .reveal-hero-intro .intro-preview-frame { margin-bottom: 16px; }
-.reveal-hero-intro p { font-size: 16px; line-height: 1.4; }
+.reveal-hero-intro p { font-size: 16.2px; line-height: 1.5; }
 
 .image-container {
 flex-direction: column;
@@ -1062,7 +1120,7 @@ gap: 12px;
 padding: 30px 16px 40px 16px;
 }
 .extended-content-section p {
-font-size: 16px;
+font-size: 16.2px;
 line-height: 1.5;
 margin-bottom: 35px;
 }
@@ -1237,14 +1295,14 @@ the platformer game where you can play as the bad guy
 </div>
 
 <div class="gta-action-row">
-<a href="#" class="gta-pill-btn" id="scrollExploreBtn">Synopsis</a>
+<a href="#" class="gta-pill-btn" id="scrollExploreBtn">synopsis</a>
 <div class="pitch-btn-wrapper">
 <div class="pitch-preview-window">
 <img src="https://gavinoriley.github.io/assets/prevpitchpage.png" alt="Pitch Deck Preview">
 </div>
-<a href="#" class="gta-pill-btn pitch-deck-trigger" id="heroPitchBtn">Get in Touch / Request Pitch Deck</a>
+<a href="#" class="gta-pill-btn pitch-deck-trigger" id="heroPitchBtn">get in touch / request pitch deck</a>
 </div>
-<a href="https://www.youtube.com/watch?v=VbFZFto8Naw" target="_blank" rel="noopener noreferrer" class="gta-pill-btn" id="watchTrailerBtn">Watch Trailer</a>
+<a href="https://www.youtube.com/watch?v=VbFZFto8Naw" target="_blank" rel="noopener noreferrer" class="gta-pill-btn" id="watchTrailerBtn">watch trailer</a>
 </div>
 </main>
 
@@ -1274,7 +1332,7 @@ the platformer game where you can play as the bad guy
 </div>
 <p class="reveal-on-scroll">
 venture through a world where your actions have consequences.<br>
-in this platformer, you control a piece of tofu named hamachi, who unexpectedly falls into the possession of demon queen deity,<br>
+in this platformer, you control a piece of tofu named Hamachi, who unexpectedly falls into the possession of demon queen deity,<br>
 an evil fiend who intends to use him as a vessel to conquer the world through mass murder.
 </p>
 
@@ -1331,7 +1389,7 @@ an evil fiend who intends to use him as a vessel to conquer the world through ma
 <img src="https://gavinoriley.github.io/assets/prevpitchpage.png" alt="Pitch Deck Preview">
 </div>
 <a href="#" class="gta-pill-btn pitch-deck-trigger">
-Get in Touch / Request Pitch Deck
+get in touch / request pitch deck
 </a>
 </div>
 </div>
