@@ -200,44 +200,28 @@ z-index: 210;
 align-items: center;
 flex-shrink: 0;
 }
-.hero-socials a,
-.share-trigger-btn {
+.hero-socials a {
 display: flex;
 opacity: 0.55;
 transition: opacity 0.2s;
 }
-.hero-socials a:hover,
-.share-trigger-btn:hover { opacity: 1; }
+.hero-socials a:hover { opacity: 1; }
 .hero-socials img {
 height: 22px;
 width: auto;
 }
-.share-trigger-btn {
-background: none;
-border: none;
-padding: 0;
-cursor: pointer;
-}
-.share-trigger-btn svg {
-width: 22px;
-height: 22px;
-stroke: #aaa;
-fill: none;
-stroke-width: 1.5;
-}
 
-.share-card,
 .x-hover-card {
 position: absolute;
 top: 28px;
 right: 0;
 background: #0c0c0c;
 border: 1px solid #2a2a2a;
-min-width: 220px;
-padding: 10px;
+border-radius: 50px;
+padding: 4px;
 display: flex;
 flex-direction: column;
-gap: 6px;
+gap: 0;
 z-index: 500;
 opacity: 0;
 visibility: hidden;
@@ -245,7 +229,6 @@ pointer-events: none;
 transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
-.share-card.active,
 .x-hover-wrapper:hover .x-hover-card,
 .x-hover-card:hover {
 opacity: 1;
@@ -264,8 +247,9 @@ height: 20px;
 .x-hover-card .share-opt-link {
 justify-content: center;
 text-align: center;
-padding: 10px 12px;
+padding: 9px 20px;
 white-space: nowrap;
+border-radius: 50px;
 }
 .share-opt-link {
 display: flex;
@@ -372,6 +356,7 @@ transform: scaleX(1);
 .nav-overlay a:nth-child(6):hover { color: #3a9a4a; }
 .nav-overlay a:nth-child(7):hover { color: #3a6aaa; }
 .nav-overlay a:nth-child(8):hover { color: #c9a83a; }
+.nav-overlay a:nth-child(9):hover { color: #c33a3a; }
 
 .panel {
 max-width: 640px;
@@ -611,8 +596,8 @@ transform: translateX(-50%) translateY(0) scale(1);
 }
 
 /* ===== PILL BUTTONS — same aesthetic as the HOME page buttons =====
-   lowercase labels, slow 1.35s fade-in on hover (text, border, background),
-   plus a soft diffuse glow (::after) that blooms around the pill. */
+      lowercase labels, slow 1.35s fade-in on hover (text, border, background),
+      plus a soft diffuse glow (::after) that blooms around the pill. */
 .gta-pill-btn {
 position: relative;
 display: inline-flex;
@@ -732,7 +717,7 @@ margin-bottom: 25px;
 }
 
 /* text format matched to the ABOUT page paragraph style
-   (About uses 22px inside a 0.9 zoom wrapper = 19.8px on screen) */
+      (About uses 22px inside a 0.9 zoom wrapper = 19.8px on screen) */
 .reveal-hero-intro p {
 font-size: 19.8px;
 font-weight: normal;
@@ -778,10 +763,10 @@ transform: scale(1.02);
 }
 
 /* photo size matched to the ABOUT page:
-   About shows each photo at most 800px wide inside a 0.9 zoom wrapper (= 720px on screen).
-   Here the same 0.9 zoom is applied to just the photo rows (the text sizes above already
-   account for it), each photo is capped at 800px, and the photos may shrink on narrower
-   windows so a pair never runs off the sides of the screen. */
+      About shows each photo at most 800px wide inside a 0.9 zoom wrapper (= 720px on screen).
+      Here the same 0.9 zoom is applied to just the photo rows (the text sizes above already
+      account for it), each photo is capped at 800px, and the photos may shrink on narrower
+      windows so a pair never runs off the sides of the screen. */
 .extended-content-section .image-container {
 zoom: 0.9;
 max-width: 1620px; /* two 800px photos + the 20px gap */
@@ -792,9 +777,9 @@ min-width: 0;
 }
 
 /* text format matched to the ABOUT page paragraph style:
-   regular weight, white, 1px black shadow, no letter-spacing, 1.5 line-height,
-   2000px max-width so each line breaks only where the <br> tags say.
-   (About uses 22px inside a 0.9 zoom wrapper = 19.8px on screen) */
+      regular weight, white, 1px black shadow, no letter-spacing, 1.5 line-height,
+      2000px max-width so each line breaks only where the <br> tags say.
+      (About uses 22px inside a 0.9 zoom wrapper = 19.8px on screen) */
 .extended-content-section p {
 font-size: 19.8px;
 line-height: 1.5;
@@ -1072,15 +1057,12 @@ padding-right: max(12px, env(safe-area-inset-right));
 padding-top: env(safe-area-inset-top);
 }
 .hero-socials { gap: 10px; }
-.hero-socials img,
-.share-trigger-btn svg {
+.hero-socials img {
 width: 20px;
 height: 20px;
 }
-.share-card,
 .x-hover-card {
 right: -4px;
-min-width: 200px;
 }
 .gta-landing-hero { padding: 70px 16px 16px 16px; }
 .bad-guy-tagline { font-size: 14px; text-align: center; margin-bottom: 14px; }
@@ -1183,25 +1165,6 @@ padding: max(60px, calc(56px + env(safe-area-inset-top))) max(20px, env(safe-are
 <a href="https://x.com/search?q=%23hamachithepsychotickiller&src=hashtag_click" target="_blank" rel="noopener noreferrer" class="share-opt-link">#hamachithepsychotickiller</a>
 </div>
 </div>
-<div class="share-wrapper" style="position:relative;">
-<button class="share-trigger-btn" id="shareEngineTrigger" aria-label="Share">
-<svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
-</button>
-<div class="share-card" id="shareDropdownPanel">
-<button class="share-opt-link" id="copyLinkActionBtn">
-<svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 2h6v4H9z"/></svg>
-<span id="copyLinkTextNode">copy link</span>
-</button>
-<button class="share-opt-link" id="shareContactActionBtn">
-<svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 4l8 5 8-5V6l-8 5-8-5v2z"/></svg>
-email
-</button>
-<a href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fhamachithepsychotickiller.com%2Fpublishingpartnerships%2F" target="_blank" rel="noopener noreferrer" class="share-opt-link">
-<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-share on x
-</a>
-</div>
-</div>
 </div>
 </div>
 
@@ -1215,6 +1178,7 @@ share on x
 <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link">buy game</a>
 <a href="#" class="menu-link" id="navContactBtn">contact</a>
 <a href="https://gavinoriley.github.io/assets/Hama_WallPaper.zip" download class="menu-link">wallpaper</a>
+<a href="https://drive.google.com/drive/folders/129Lg16BksVjWVjF34AxpQjIBokp8S6SZ?usp=sharing" target="_blank" rel="noopener noreferrer" class="menu-link" id="pressKitLink">press kit</a>
 <a href="#" class="menu-link" id="navAboutDevBtn">about dev</a>
 </div>
 
@@ -1839,45 +1803,6 @@ navOverlay.addEventListener('click', (e) => {
 if (e.target === navOverlay) toggleMenu();
 });
 
-// SHARE DROPDOWN
-const shareEngineTrigger = document.getElementById('shareEngineTrigger');
-const shareDropdownPanel = document.getElementById('shareDropdownPanel');
-const copyLinkActionBtn = document.getElementById('copyLinkActionBtn');
-const copyLinkTextNode = document.getElementById('copyLinkTextNode');
-const shareContactActionBtn = document.getElementById('shareContactActionBtn');
-
-if (shareEngineTrigger) {
-shareEngineTrigger.addEventListener('click', (e) => {
-e.stopPropagation();
-shareDropdownPanel.classList.toggle('active');
-});
-}
-
-document.addEventListener('click', (e) => {
-if (shareDropdownPanel && !shareDropdownPanel.contains(e.target) && e.target !== shareEngineTrigger) {
-shareDropdownPanel.classList.remove('active');
-}
-});
-
-if (copyLinkActionBtn) {
-copyLinkActionBtn.addEventListener('click', (e) => {
-e.preventDefault();
-navigator.clipboard.writeText('https://hamachithepsychotickiller.com/publishingpartnerships/').then(() => {
-copyLinkTextNode.textContent = 'copied';
-setTimeout(() => copyLinkTextNode.textContent = 'copy link', 1800);
-});
-});
-}
-
-if (shareContactActionBtn) {
-shareContactActionBtn.addEventListener('click', (e) => {
-e.preventDefault();
-if (shareDropdownPanel) {
-shareDropdownPanel.classList.remove('active');
-}
-openContactPanel(e);
-});
-}
 </script>
 <script>
 // NAV BAR STATE SYNC (matches homepage): fades the frosted bar out while the menu overlay is open
